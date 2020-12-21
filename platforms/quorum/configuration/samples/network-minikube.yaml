@@ -49,11 +49,11 @@ network:
       - "https://carrier.carrier-quo.svc.cluster.local:9001"
       - "https://manufacturer.manufacturer-quo.svc.cluster.local:9001"
       - "https://warehouse.warehouse-quo.svc.cluster.local:9001"
-    genesis: # Existing network's genesis.json file in base64 format like below
-    #     ewogICAgImFsbG9jIjogewogICAgICAgICIwOTg2Nzk2ZjM0ZDhmMWNkMmI0N2M3MzQ2YTUwYmY2
-    #     OWFhOWM1NzcyIjogewogICAgICAgICAgICAiYmFsYW5jZSI6ICIxMDAwMDAwMDAwMDAwMDAwMDAw
-    #     MDAwMDAwMDAwIgogICAgICAgIH0sCiAgICAgICAgImY2MjkyNTQ1YWVjNTkyMDU4MzQ
 
+    staticnodes: "/home/user/blockchain-automation-framework/build/quorum_staticnodes" # Location where staticnodes will be saved
+    genesis: "/home/user/blockchain-automation-framework/build/quorum_genesis"   # Location where genesis file will be saved
+    # NOTE for the above paths, the directories should exist
+  
   # Allows specification of one or many organizations that will be connecting to a network.
   organizations:
     # Specification for the 1st organization. Each organization should map to a VPC and a separate k8s cluster for production deployments
