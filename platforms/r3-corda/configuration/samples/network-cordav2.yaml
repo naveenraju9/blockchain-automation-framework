@@ -26,12 +26,12 @@ network:
     password: "docker_password"
   
   # Remote connection information for doorman and networkmap (will be blank or removed for hosting organization)
-  orderers:
-    - orderer:
+  network_services:
+    - service:
       type: doorman
       uri: https://doorman.test.corda.blockchaincloudpoc.com:8443
       certificate: home_dir/platforms/r3-corda/configuration/build/corda/doorman/tls/ambassador.crt
-    - orderer:
+    - service:
       type: networkmap
       uri: https://networkmap.test.corda.blockchaincloudpoc.com:8443
       certificate: home_dir/platforms/r3-corda/configuration/build/corda/networkmap/tls/ambassador.crt
@@ -66,7 +66,7 @@ network:
       vault:
         url: "vault_addr"
         root_token: "vault_root_token"
-
+        secret_path: "secret"
       # Git Repo details which will be used by GitOps/Flux.
       # Do not check-in git_access_token
       gitops:
@@ -121,7 +121,7 @@ network:
           p2p:
             port: 10002
             targetPort: 10002
-            ambassador: 10010       #Port for ambassador service (use one port per org if using single cluster)
+            ambassador: 15010       #Port for ambassador service (must be from env.ambassadorPorts above)
           rpc:
             port: 10003
             targetPort: 10003
@@ -161,7 +161,7 @@ network:
       vault:
         url: "vault_addr"
         root_token: "vault_root_token"
-
+        secret_path: "secret"
       # Git Repo details which will be used by GitOps/Flux.
       # Do not check-in git_access_token
       gitops:
@@ -197,7 +197,7 @@ network:
           p2p:
             port: 10002
             targetPort: 10002
-            ambassador: 10020       #Port for ambassador service (use one port per org if using single cluster)
+            ambassador: 15010       #Port for ambassador service (must be from env.ambassadorPorts above)
           rpc:
             port: 10003
             targetPort: 10003
@@ -242,7 +242,7 @@ network:
       vault:
         url: "vault_addr"
         root_token: "vault_root_token"
-
+        secret_path: "secret"
       # Git Repo details which will be used by GitOps/Flux.
       # Do not check-in git_access_token
       gitops:
@@ -277,7 +277,7 @@ network:
           p2p:
             port: 10002
             targetPort: 10002
-            ambassador: 10030       #Port for ambassador service (use one port per org if using single cluster)
+            ambassador: 15020       #Port for ambassador service (must be from env.ambassadorPorts above)
           rpc:
             port: 10003
             targetPort: 10003
@@ -322,7 +322,7 @@ network:
       vault:
         url: "vault_addr"
         root_token: "vault_root_token"
-
+        secret_path: "secret"
       # Git Repo details which will be used by GitOps/Flux.
       # Do not check-in git_access_token
       gitops:
@@ -357,7 +357,7 @@ network:
           p2p:
             port: 10002
             targetPort: 10002
-            ambassador: 10040       #Port for ambassador service (use one port per org if using single cluster)
+            ambassador: 15020       #Port for ambassador service (must be from env.ambassadorPorts above)
           rpc:
             port: 10003
             targetPort: 10003
@@ -402,7 +402,7 @@ network:
       vault:
         url: "vault_addr"
         root_token: "vault_root_token"
-
+        secret_path: "secret"
       # Git Repo details which will be used by GitOps/Flux.
       # Do not check-in git_access_token
       gitops:
@@ -437,7 +437,7 @@ network:
           p2p:
             port: 10002
             targetPort: 10002
-            ambassador: 10050       #Port for ambassador service (use one port per org if using single cluster)
+            ambassador: 15020       #Port for ambassador service (must be from env.ambassadorPorts above)
           rpc:
             port: 10003
             targetPort: 10003

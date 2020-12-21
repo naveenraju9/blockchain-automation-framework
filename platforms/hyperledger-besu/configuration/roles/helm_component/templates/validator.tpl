@@ -1,4 +1,4 @@
-apiVersion: flux.weave.works/v1beta1
+apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: {{ component_name }}
@@ -38,7 +38,6 @@ spec:
       external_url: {{ name }}.{{ external_url }}
       p2p: {{ peer.p2p.ambassador }}
       rpc: {{ peer.rpc.ambassador }}
-      ws: {{ peer.ws.ambassador }}
 
     images:
       node: hyperledger/besu:{{ network.version }}
@@ -46,6 +45,7 @@ spec:
 
     node:
       name: {{ peer.name }}
+      tls: {{ network.config.tm_tls }}
       consensus: {{ consensus }}
       mountPath: /etc/genesis
       servicetype: ClusterIP
@@ -61,9 +61,10 @@ spec:
 
     vault:
       address: {{ vault.url }}
-      secretprefix: secret/{{ component_ns }}/crypto/{{ peer.name }}
+      secretprefix: {{ vault.secret_path | default('secret') }}/{{ component_ns }}/crypto/{{ peer.name }}
       serviceaccountname: vault-auth
       keyname: data
+      tlsdir: tls
       role: vault-role
       authpath: besu{{ name }}
 

@@ -17,6 +17,8 @@ charts:
   nms: nms
   mongodb: mongodb
   doorman: doorman
+  notarydb: h2
+  nodedb: h2
   db: h2
   notaryjob: notary-initial-registration
   nodejob: node-initial-registration
@@ -25,6 +27,7 @@ charts:
   tessera: node_tessera
   constellation: node_constellation
   pki-generator: generate-pki
+  pki-generator-node: generate-pki-node
   signer: signer
   node_orion: node_orion
   idman: idman
@@ -35,3 +38,5 @@ charts:
   bridge: bridge
   float: float
   node_registration: node-initial-registration
+  cli: fabric_cli
+  node: node

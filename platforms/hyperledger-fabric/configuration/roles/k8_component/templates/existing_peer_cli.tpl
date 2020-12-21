@@ -10,8 +10,8 @@ vault:
   role: vault-role
   address: {{ vault.url }}
   authpath: {{ component_ns }}-auth
-  adminsecretprefix: secret/crypto/peerOrganizations/{{ component_ns }}/users/admin
-  orderersecretprefix: secret/crypto/peerOrganizations/{{ component_ns }}/orderer
+  adminsecretprefix: {{ vault.secret_path | default('secret') }}/crypto/peerOrganizations/{{ component_ns }}/users/admin
+  orderersecretprefix: {{ vault.secret_path | default('secret') }}/crypto/peerOrganizations/{{ component_ns }}/orderer
   serviceaccountname: vault-auth
   imagesecretname: regcred
   tls: false
@@ -19,6 +19,10 @@ peer:
   name: {{ peer_name }}
   localmspid: {{ org.name | lower}}MSP
   tlsstatus: true
-  address: {{ peer_address }}
+{% if network.env.proxy == 'none' %}
+  address: {{ peer.name }}.{{ component_ns }}:7051
+{% else %}
+  address: {{ peer.peerAddress }}
+{% endif %}
 orderer:
   address: {{ participant.ordererAddress }}

@@ -12,7 +12,7 @@
 <a name = "Ansible_Inventory"></a>
 ## Ansible Inventory file
 
-If not done already, configure the Ansible controller with this sample inventory file is located [here](https://github.com/hyperledger-labs/blockchain-automation-framework/tree/master/platforms/shared/inventory/ansible_provisoners). 
+If not done already, configure the Ansible controller with this sample inventory file is located [here](https://github.com/hyperledger-labs/blockchain-automation-framework/tree/master/platforms/shared/inventory/ansible_provisioners). 
 
 Add the contents of this file in your Ansible host configuration file (typically in file /etc/ansible/hosts).
 
@@ -43,7 +43,7 @@ And add the public key contents (starts with **ssh-rsa**) as an Access Key (with
 
 The Blockchain Automation Framework provides pre-built docker images which are available on [Docker Hub](https://hub.docker.com/u/hyperledgerlabs). Ensure that the versions/tags you need are available. If not, raise it on our [RocketChat Channel](https://chat.hyperledger.org/channel/blockchain-automation-framework).
 
-For Corda Enterprise, the docker images should be built and put in a private docker registry. Please follow [these instructions](https://github.com/hyperledger-labs/blockchain-automation-framework/tree/master/platforms/corda-ent/images) to build docker images for Corda Enterprise.
+For Corda Enterprise, the docker images should be built and put in a private docker registry. Please follow [these instructions](../architectureref/corda-ent.html#docker-images) to build docker images for Corda Enterprise.
 
 ---
 **NOTE:** The Blockchain Automation Framework recommends use of private docker registry for production use. The username/password for the docker registry can be provided in a **network.yaml** file so that the Kubernetes cluster can access the registry.
@@ -81,7 +81,7 @@ vault operator unseal << unseal-key-from-above >>
 ```
 vault login << give the root token >>
 ```
-* Enable secrets engine
+* Enable secrets engine. Blockchain Automation Framework uses the secret path `secret` by default. This can be changed in the network.yaml, in which case it will need to be enabled with the selected path.
 ```
 vault secrets enable -version=1 -path=secret kv
 ```

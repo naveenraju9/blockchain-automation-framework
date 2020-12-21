@@ -1,4 +1,4 @@
-apiVersion: flux.weave.works/v1beta1
+apiVersion: helm.fluxcd.io/v1
 kind: HelmRelease
 metadata:
   name: {{ component_name }}
@@ -27,9 +27,6 @@ spec:
       namespace: {{ component_ns }}
       labels:
 
-    ambassador:
-      external_url_suffix: {{ external_url }}
-
     liveliness_check:
       enabled: false
 
@@ -38,9 +35,7 @@ spec:
       external_url: {{ name }}.{{ external_url }}
       p2p: {{ peer.p2p.ambassador }}
       rpc: {{ peer.rpc.ambassador }}
-      ws: {{ peer.ws.ambassador }}
-      nodeport: {{ peer.tm_nodeport.ambassador }}
-      clientport: {{ peer.tm_clientport.ambassador }}
+      tmport: {{ peer.tm_nodeport.ambassador }}
 
     images:
       node: hyperledger/besu:{{ network.version }}
@@ -69,6 +64,7 @@ spec:
       url: "http://{{ name }}.{{ external_url }}"
 {% endif %}
       nodelist: "{{nodelist}}"
+      trust: {{ network.config.tm_trust }}
       ports:
         nodeport: {{ peer.tm_nodeport.port }}
         clientport: {{ peer.tm_clientport.port }}
@@ -79,7 +75,7 @@ spec:
 
     vault:
       address: {{ vault.url }}
-      secretprefix: secret/{{ component_ns }}/crypto/{{ peer.name }}
+      secretprefix: {{ vault.secret_path | default('secret') }}/{{ component_ns }}/crypto/{{ peer.name }}
       serviceaccountname: vault-auth
       keyname: data
       oriondir: orion
